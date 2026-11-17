@@ -1,11 +1,11 @@
 const stageEl=$('stage'), glc=$('gl'), fxc=$('fx'), fctx=fxc.getContext('2d'), mapC=$('map'), mctx=mapC.getContext('2d');
 let renderer;
 try{ renderer=new THREE.WebGLRenderer({canvas:glc,antialias:true,powerPreference:'high-performance'}); }
-catch(e){ window.__ssFail('This browser has no WebGL, which Sunslide needs.'); throw e; }
+catch(e){ window.__ssFail('이 브라우저는 Sunslide에 필요한 WebGL을 지원하지 않아요.'); throw e; }
 renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.1;
 renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap; renderer.shadowMap.autoUpdate=false;
 const MAXANI=Math.min(8,renderer.capabilities.getMaxAnisotropy());
-glc.addEventListener('webglcontextlost',e=>{ e.preventDefault(); if(state==='play') setPaused(true); say('Graphics reset by the browser — lowering quality',2500); });
+glc.addEventListener('webglcontextlost',e=>{ e.preventDefault(); if(state==='play') setPaused(true); say('브라우저가 그래픽을 초기화했어요 — 화질을 낮춥니다',2500); });
 glc.addEventListener('webglcontextrestored',()=>{ qMode=Math.max(0,qLevel-1); qLevel=qMode; store.set('quality',qMode); location.reload(); });
 const scene=new THREE.Scene(); scene.background=new THREE.Color('#04050d');
 const camera=new THREE.PerspectiveCamera(50,1,0.02,200);

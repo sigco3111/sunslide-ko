@@ -1,7 +1,7 @@
 {
   "name": "Sunslide",
   "short_name": "Sunslide",
-  "description": "Bubble-frog arcade puzzle on sliding meadow islands around a tiny planet.",
+  "description": "작은 행성 주위 미끄러지는 초원 섬에서 거품 개구리를 움직이는 아케이드 퍼즐.",
   "start_url": "/sunslide/",
   "display": "fullscreen",
   "background_color": "#04050d",

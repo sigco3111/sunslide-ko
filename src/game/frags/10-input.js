@@ -9,9 +9,9 @@ function setView(far){ viewFar=far; store.set('viewFar',far); syncButtons(); }
 function setMuted(m){ AU.muted=m; store.set('muted',m); if(AUD.ac) AUD.sfx.gain.value=m?0:1; syncButtons(); }
 function setMusic(on){ MUS.on=on; store.set('music',on); audio(); if(AUD.ac){ AUD.mus.gain.value=on?0.6:0; MUS.next=0; } if(typeof syncAmbientMusic==='function') syncAmbientMusic(); syncButtons(); }
 function syncButtons(){
-  $('bMus').textContent=MUS.on?'♪':'×'; $('sBtn').textContent='Sound: '+(AU.muted?'Off':'On'); $('mBtn').textContent='Music: '+(MUS.on?'On':'Off');
-  $('vBtn').textContent='View: '+(viewFar?'Planet':'Close'); $('bView').classList.toggle('on',viewFar); $('bView2').textContent=viewFar?'◉':'◎';
-  $('qBtn').textContent='Quality: '+(qMode==='auto'?'Auto ('+QUAL[qLevel].n+')':QUAL[qLevel].n);
+  $('bMus').textContent=MUS.on?'♪':'×'; $('sBtn').textContent='사운드: '+(AU.muted?'끔':'켬'); $('mBtn').textContent='음악: '+(MUS.on?'켬':'끔');
+  $('vBtn').textContent='시점: '+(viewFar?'행성':'가까이'); $('bView').classList.toggle('on',viewFar); $('bView2').textContent=viewFar?'◉':'◎';
+  $('qBtn').textContent='화질: '+(qMode==='auto'?'자동 ('+QUAL[qLevel].n+')':QUAL[qLevel].n);
 }
 const KEYS={ArrowUp:0,KeyW:0,ArrowRight:1,KeyD:1,ArrowDown:2,KeyS:2,ArrowLeft:3,KeyA:3};
 addEventListener('keydown',e=>{
@@ -89,10 +89,10 @@ mapC.addEventListener('pointerdown',e=>{
   const id=slotGrid[r][c]; if(id<0) return;
   if(holeNeighbors().some(n=>n.c===c&&n.r===r)){ const msg=trySlide(c,r); if(msg){ say(msg,1200); SFX.nope(); } return; }
   const T=tiles[id];
-  if(waypoint===id){ waypoint=-1; say('Waypoint cleared',800); SFX.tick(); return; }
-  if(T.cleared){ say('Island '+T.num+' is already in bloom',1000); return; }
-  if(player.t===id){ say('You are on island '+T.num,900); return; }
-  waypoint=id; say('Waypoint: island '+T.num+' — follow the pink arrow',1500); SFX.tick();
+  if(waypoint===id){ waypoint=-1; say('경로 표시 해제',800); SFX.tick(); return; }
+  if(T.cleared){ say('섬 '+T.num+'은 이미 꽃이 피었어요',1000); return; }
+  if(player.t===id){ say('지금 섬 '+T.num+' 위에 있어요',900); return; }
+  waypoint=id; say('경로: 섬 '+T.num+' — 분홍 화살표를 따라가세요',1500); SFX.tick();
 });
 $('go').addEventListener('click',startGame);
 $('again').addEventListener('click',()=>{ $('oBlock').classList.add('hide'); $('wBlock').classList.add('hide'); $('tBlock').classList.remove('hide'); startGame(); });

@@ -51,7 +51,7 @@ function resetActors(){
 }
 function addScore(n){
   score+=n;
-  if(score>=nextLife){ nextLife+=CFG.lifeEvery; lives++; SFX.life(); say('Extra life!',1200); }
+  if(score>=nextLife){ nextLife+=CFG.lifeEvery; lives++; SFX.life(); say('목숨 +1!',1200); }
 }
 function playerCell(){ const a=player; return a.moving?{t:a.nt,x:a.nx,y:a.ny}:{t:a.t,x:a.x,y:a.y}; }
 function eatAt(t,x,y){
@@ -66,11 +66,11 @@ function eatAt(t,x,y){
     combo=comboT<CFG.comboWin?combo+1:1; comboT=0;
     haptics.bubbleCollect();
     addScore((10+Math.min(20,(combo-1)*2))*mult); SFX.pop(combo-1); emit(pos,10,PC.bubble,0.2,0.007,0.45,0.25);
-    if(combo>=5&&combo%5===0){ floatAt(pos,'combo ×'+combo,'#7fe8ff'); if(combo%20===0) say('Combo ×'+combo+'!',900); }
+    if(combo>=5&&combo%5===0){ floatAt(pos,'콤보 ×'+combo,'#7fe8ff'); if(combo%20===0) say('콤보 ×'+combo+'!',900); }
   }
   else {
     rumble(160,0.2,0.6); addScore(50*mult); fright=Math.max(CFG.frightMin,CFG.frightBase-0.4*(level-1)); chain=0;
-    SFX.sun(); emit(pos,34,PC.gold,0.32,0.01,0.95,0.15); say('Sunstone! Chase the bats',1300);
+    SFX.sun(); emit(pos,34,PC.gold,0.32,0.01,0.95,0.15); say('햇살 돌! 박쥐를 쫓아가세요',1300);
   }
   if(mult>1) floatAt(pos,'×2','#ffd25e');
   if(!T.cleared&&!T.dots.some(v=>v)) islandCleared(T);
@@ -81,7 +81,7 @@ function islandCleared(T){
   const bonus=300+50*level; addScore(bonus); SFX.bloom();
   const bat=bats.find(g=>g.home===T.id&&g.mode!=='gone');
   if(bat){ bat.mode='gone'; bat.goneT=0; }
-  if(dotsLeft>0) say('Island '+T.num+' cleared! It blooms'+(bat?' and its bat flies off':''),1800);
+  if(dotsLeft>0) say('섬 '+T.num+' 클리어! 꽃이 피었어요'+(bat?' 그리고 박쥐가 날아갔어요':''),1800);
   const p=tilePos(T); frameAt(p.x+TW/2,p.y+TH/2); const c=_R.clone().multiplyScalar(1.03);
   floatAt(c,'+'+bonus,'#ffb3d9');
   for(let k=0;k<10;k++){ frameAt(p.x+0.5+Math.random()*(TW-1),p.y+0.5+Math.random()*(TH-1)); emit(_R.clone().multiplyScalar(1.02),6,PC.petal,0.16,0.012,1.2,0.1,1.0); }
@@ -91,12 +91,12 @@ function spawnBerry(){
   if(!c.length){ berryTimer=10; return; }
   const T=c[ri(c.length)], cell=ri(N);
   berry={t:T.id,x:cell%TW,y:(cell/TW)|0,ttl:CFG.berryTTL};
-  say('A sky berry ripened on island '+T.num+'!',1600); SFX.berry();
+  say('섬 '+T.num+'에 하늘 열매가 익었어요!',1600); SFX.berry();
 }
 function checkBerry(t,x,y){
   if(!berry||berry.t!==t||berry.x!==x||berry.y!==y) return;
   const pts=500+100*(level-1), pos=cellWorld(t,x,y,0.05);
-  addScore(pts); boostT=CFG.boostT; SFX.berry(); emit(pos,40,PC.berry,0.3,0.012,1.0,0.1); floatAt(pos,'+'+pts+' speed!','#ff8fe6');
+  addScore(pts); boostT=CFG.boostT; SFX.berry(); emit(pos,40,PC.berry,0.3,0.012,1.0,0.1); floatAt(pos,'+'+pts+' 스피드!','#ff8fe6');
   berry=null; berryTimer=CFG.berryEvery[0]+Math.random()*(CFG.berryEvery[1]-CFG.berryEvery[0]);
 }
 function spawnSink(){
@@ -108,7 +108,7 @@ function spawnSink(){
   const tg=path[Math.min(path.length-1,2+ri(2))];
   if(tiles[tg.t].dots[tg.y*TW+tg.x]===2||(berry&&berry.t===tg.t&&berry.x===tg.x&&berry.y===tg.y)){ sinkTimer=1; return; }
   sink={t:tg.t,x:tg.x,y:tg.y,phase:'warn',timer:CFG.sinkWarn,open:0};
-  SFX.rumble(); say('Sinkhole! Turn away!',900); shakeT=Math.max(shakeT,0.15);
+  SFX.rumble(); say('싱크홀! 피하세요!',900); shakeT=Math.max(shakeT,0.15);
 }
 function antipode(){
   const w=actorWorld(player), gx=mod(Math.floor(w[0])+GW/2,GW), gy=GH-1-Math.floor(w[1]);
@@ -137,7 +137,7 @@ function updateWarp(dt){
   warpT+=dt;
   if(!warped&&warpT>=0.55){
     warped=true; player=mkActor(warpDest.t,warpDest.x,warpDest.y); exitFx={t:warpDest.t,x:warpDest.x,y:warpDest.y,age:0};
-    SFX.boing(); const pos=actorPos(player,0.02); emit(pos,40,PC.warp,0.35,0.012,1.0,0.5,1.4); floatAt(pos,'Whoosh!','#d6b3ff');
+    SFX.boing(); const pos=actorPos(player,0.02); emit(pos,40,PC.warp,0.35,0.012,1.0,0.5,1.4); floatAt(pos,'휙!','#d6b3ff');
   }
   if(warpT>=1.5){ state='play'; invuln=Math.max(invuln,1.2); eatAt(player.t,player.x,player.y); }
 }
@@ -228,12 +228,12 @@ function slideBlocked(T){
 }
 function trySlide(c,r){
   if(state!=='play'||paused) return '';
-  if(sink&&sink.t===slotGrid[r][c]) return 'Not while a sinkhole is open there';
+  if(sink&&sink.t===slotGrid[r][c]) return '그 자리는 싱크홀이 열려 있어 안 돼요';
   const id=slotGrid[r][c]; if(id<0) return '';
-  const h=findHole(); if(!holeNeighbors().some(n=>n.c===c&&n.r===r)) return 'That island isn’t next to the empty meadow';
+  const h=findHole(); if(!holeNeighbors().some(n=>n.c===c&&n.r===r)) return '이 섬은 빈 초원 옆에 없어요';
   if(tiles.some(t=>t.anim)||cooldown>0) return '';
-  if(lightSlot(c,r)<CFG.slideLight) return 'Too dark — islands only slide in sunlight';
-  const T=tiles[id]; if(slideBlocked(T)) return 'Wait — someone is crossing';
+  if(lightSlot(c,r)<CFG.slideLight) return '너무 어두워요 — 섬은 햇빛 아래서만 밀 수 있어요';
+  const T=tiles[id]; if(slideBlocked(T)) return '잠깐만요 — 누군가 지나가고 있어요';
   let dc=h.c-c; if(dc>2) dc-=COLS; if(dc<-2) dc+=COLS;
   T.anim={t:0,fc:c,fr:r,dc,dr:h.r-r};
   slotGrid[h.r][h.c]=id; slotGrid[r][c]=-1; T.slot={c:h.c,r:h.r};
@@ -246,11 +246,11 @@ function onSlideEnd(T){
   if(isHome(T)&&!T.homeAwarded){
     T.homeAwarded=true; addScore(250); SFX.home();
     const hasBat=bats.some(g=>g.home===T.id);
-    say('Island '+T.num+' is home!'+(hasBat?' Its bat falls asleep':' Bubbles score ×2'),1800);
+    say('섬 '+T.num+'이 제자리에 왔어요!'+(hasBat?' 박쥐가 잠들었어요':' 방울 점수 ×2'),1800);
     const p=tilePos(T); frameAt(p.x+TW/2,p.y+TH/2); const c=_R.clone().multiplyScalar(1.03);
     emit(c,60,PC.gold,0.35,0.012,1.4,-0.12,1.2); floatAt(c,'+250','#ffd25e');
   }
-  if(!aligned&&tiles.every(isHome)){ aligned=true; addScore(3000); say('All islands home! +3000',2400); SFX.clear(); }
+  if(!aligned&&tiles.every(isHome)){ aligned=true; addScore(3000); say('모든 섬이 제자리에! +3000',2400); SFX.clear(); }
 }
 function update(dt){
   gameClock+=dt;
@@ -277,13 +277,13 @@ function update(dt){
     updateWarp(dt); if(sink) updateSink(dt);
   } else if(state==='dying'){
     dyingT-=dt;
-    if(dyingT<=0){ lives--; if(lives<=0) gameOver(); else { resetActors(); state='play'; readyT=1.0; invuln=2.5; say('READY',900); } }
+    if(dyingT<=0){ lives--; if(lives<=0) gameOver(); else { resetActors(); state='play'; readyT=1.0; invuln=2.5; say('준비',900); } }
   } else if(state==='clear'){
     clearT-=dt;
     if(Math.random()<dt*7){ const d=new THREE.Vector3(Math.random()*2-1,Math.random()*2-1,Math.random()*2-1).normalize().multiplyScalar(1.12); emit(d,30,[PC.gold[0],PC.teal[0],PC.bubble[1]],0.3,0.013,1.1,0.05); }
     if(clearT<=0){
       if(typeof window.__ssHideClearStars==='function') window.__ssHideClearStars();
-      level++; newLevel(); state='play'; readyT=1.6; invuln=2; zoomT=1; say('SECTOR '+level,1300);
+      level++; newLevel(); state='play'; readyT=1.6; invuln=2; zoomT=1; say('섹터 '+level,1300);
     }
   }
   updateCameraTarget(dt);
@@ -294,8 +294,8 @@ function maybeCelebratePlanetGreen(){
   planetGreenCelebrated=true;
   const goalEl=document.getElementById('greenGoal');
   if(goalEl){ goalEl.classList.add('celebrate'); setTimeout(()=>goalEl.classList.remove('celebrate'),REDUCED?0:1200); }
-  if(REDUCED){ say('The planet is fully green!',2200); SFX.bloom(); return; }
-  say('The planet is fully green!',2600); SFX.bloom(); SFX.clear();
+  if(REDUCED){ say('행성이 완전히 초록으로 물들었어요!',2200); SFX.bloom(); return; }
+  say('행성이 완전히 초록으로 물들었어요!',2600); SFX.bloom(); SFX.clear();
   const pos=cellWorld(player.t,player.x,player.y,0.05);
   frameAt(pos.x,pos.y);
   for(let k=0;k<14;k++){
@@ -311,7 +311,7 @@ function levelClear(){
     window.__ssShowClearStars({ sector: level, moves: runMoves, par: sectorPar, stars });
   }
   state='clear'; clearT=2.8; addScore(1000); if(!deaths) addScore(1000);
-  say('SECTOR CLEARED · '+formatStarRow(stars)+' ('+runMoves+' moves, par '+sectorPar+')',2600); SFX.clear();
+  say('섹터 클리어 · '+formatStarRow(stars)+' ('+runMoves+'수, 기준 '+sectorPar+'수)',2600); SFX.clear();
 }
 function gameOver(){
   state='over';
@@ -335,6 +335,6 @@ function startGame(){
   if(typeof window.__ssRefreshTitleStars==='function') window.__ssRefreshTitleStars();
   state='play'; readyT=1.6; invuln=2; zoomT=1; perfStart=performance.now();
   if(typeof refreshShadowMap==='function') refreshShadowMap();
-  $('ov').classList.add('hide'); $('wBlock').classList.add('hide'); say('READY',1200); SFX.start();
+  $('ov').classList.add('hide'); $('wBlock').classList.add('hide'); say('준비',1200); SFX.start();
   if(typeof syncAmbientGreen==='function') syncAmbientGreen();
 }

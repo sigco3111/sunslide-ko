@@ -15,7 +15,7 @@ export function initMapToggle() {
     panel.setAttribute('aria-hidden', vis ? 'false' : 'true');
     btn.setAttribute('aria-expanded', vis ? 'true' : 'false');
     btn.setAttribute('aria-pressed', vis ? 'true' : 'false');
-    btn.setAttribute('aria-label', vis ? 'Hide island map' : 'Show island map');
+    btn.setAttribute('aria-label', vis ? '섬 지도 숨기기' : '섬 지도 보기');
     if (remember) store.set('mapVisible', vis);
   };
 

@@ -105,7 +105,7 @@ describe('run-best', () => {
   it('formats time and title line', () => {
     expect(formatRunTime(45200)).toBe('45.2s');
     expect(formatRunTime(125400)).toBe('2:05.4');
-    expect(formatBestLine({ moves: 8, timeMs: 33000 })).toBe('Best run: 8 moves · 33.0s');
+    expect(formatBestLine({ moves: 8, timeMs: 33000 })).toBe('최고 기록: 8수 · 33.0s');
     expect(formatBestLine(null)).toBe('');
   });
 });

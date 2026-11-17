@@ -1,4 +1,4 @@
-const QUAL=[{n:'Low',dpr:1,px:0.7e6,shadow:0,bloom:false,blades:7000,flowers:700,ff:200},{n:'Medium',dpr:1.5,px:1.4e6,shadow:1024,bloom:true,blades:15000,flowers:1500,ff:400},{n:'High',dpr:2,px:2.4e6,shadow:2048,bloom:true,blades:30000,flowers:2800,ff:600}];
+const QUAL=[{n:'낮음',dpr:1,px:0.7e6,shadow:0,bloom:false,blades:7000,flowers:700,ff:200},{n:'보통',dpr:1.5,px:1.4e6,shadow:1024,bloom:true,blades:15000,flowers:1500,ff:400},{n:'높음',dpr:2,px:2.4e6,shadow:2048,bloom:true,blades:30000,flowers:2800,ff:600}];
 let qMode=store.get('quality','auto'); if(![ 'auto',0,1,2].includes(qMode)) qMode='auto';
 let qLevel=qMode==='auto'?2:qMode, pixelRatio=1, perfStart=performance.now(), perfAcc=0, perfN=0, renderedPaused=false;
 let adaptiveDprState=createAdaptiveDprState({ deviceDpr: window.devicePixelRatio||1 });
@@ -46,8 +46,8 @@ addEventListener('pointerdown',()=>wakeRenderLoop(),{passive:true});
 addEventListener('keydown',()=>wakeRenderLoop());
 /* ---------- gamepad (standard mapping) ---------- */
 const PAD={idx:-1,prev:[],sel:-1};
-addEventListener('gamepadconnected',e=>{ PAD.idx=e.gamepad.index; PAD.sel=-1; say('Gamepad connected — stick to hop, LB/RB + A to slide',2200); });
-addEventListener('gamepaddisconnected',e=>{ if(e.gamepad.index===PAD.idx){ PAD.idx=-1; say('Gamepad disconnected',1200); } });
+addEventListener('gamepadconnected',e=>{ PAD.idx=e.gamepad.index; PAD.sel=-1; say('게임패드 연결됨 — 스틱으로 이동, LB/RB + A로 밀기',2200); });
+addEventListener('gamepaddisconnected',e=>{ if(e.gamepad.index===PAD.idx){ PAD.idx=-1; say('게임패드 연결 해제됨',1200); } });
 function padChoices(){
   if(state!=='play'||tiles.some(t=>t.anim)) return [];
   const pt=tiles[player.t].slot;
@@ -58,7 +58,7 @@ function padSelectedId(){ if(PAD.idx<0) return -1; const ch=padChoices(); if(!ch
 function padSelect(dir){
   const ch=padChoices(); if(!ch.length) return;
   PAD.sel=((PAD.sel<0?0:PAD.sel)+dir+ch.length)%ch.length; const o=ch[PAD.sel];
-  say('Island '+tiles[o.id].num+(o.lit?' selected — A to slide':' is in the dark'),900); SFX.tick();
+  say('섬 '+tiles[o.id].num+(o.lit?' 선택 — A로 밀기':'은 어둠 속에 있어요'),900); SFX.tick();
 }
 function padSlide(){
   const ch=padChoices(); if(!ch.length) return;

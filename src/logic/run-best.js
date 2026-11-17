@@ -102,5 +102,5 @@ export function formatRunTime(timeMs) {
 export function formatBestLine(best) {
   const b = normalizeRunRecord(best);
   if (!b) return '';
-  return `Best run: ${b.moves} moves · ${formatRunTime(b.timeMs)}`;
+  return `최고 기록: ${b.moves}수 · ${formatRunTime(b.timeMs)}`;
 }

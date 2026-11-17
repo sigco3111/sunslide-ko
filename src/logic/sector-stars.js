@@ -109,5 +109,5 @@ export function totalStarsCount(map) {
 export function formatTitleStarsLine(map) {
   const total = totalStarsCount(map);
   if (total <= 0) return '';
-  return `★ ${total} star${total === 1 ? '' : 's'} earned (optional par)`;
+  return `★ 별 ${total}개 획득 (선택 기준 수)`;
 }

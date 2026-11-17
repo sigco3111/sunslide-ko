@@ -57,8 +57,8 @@ export function initWinScreen(handlers) {
     }
 
     const summary = isNewBest
-      ? `Sector clear. New best: ${record.moves} moves in ${formatRunTime(record.timeMs)}.`
-      : `Sector clear. ${record.moves} moves in ${formatRunTime(record.timeMs)}.`;
+      ? `섹터 클리어! 새 최고 기록: ${record.moves}수, ${formatRunTime(record.timeMs)}.`
+      : `섹터 클리어! ${record.moves}수, ${formatRunTime(record.timeMs)}.`;
     if (announce) announce.textContent = summary;
 
     tBlock?.classList.add('hide');

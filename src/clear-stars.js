@@ -25,10 +25,10 @@ export function initClearStars() {
     const moves = Math.max(0, Math.floor(payload.moves) || 0);
     const par = Math.max(1, Math.floor(payload.par) || 1);
     row.textContent = formatStarRow(stars);
-    meta.textContent = `Sector ${sector} · ${moves} moves (par ${par})`;
+    meta.textContent = `섹터 ${sector} · ${moves}수 (기준 ${par}수)`;
     panel.setAttribute(
       'aria-label',
-      `Sector ${sector} cleared with ${stars} of 3 stars, ${moves} moves, par ${par}`,
+      `섹터 ${sector} 클리어 · 별 3개 중 ${stars}개 · ${moves}수 · 기준 ${par}수`,
     );
     panel.classList.remove('hide');
     refreshTitleStars();
