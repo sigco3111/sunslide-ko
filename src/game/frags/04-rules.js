@@ -316,7 +316,7 @@ function levelClear(){
 function gameOver(){
   state='over';
   if(score>scoreBest){ scoreBest=score; store.set('scoreBest',scoreBest); }
-  $('res').innerHTML='Score <b>'+score+'</b> &middot; Sector <b>'+level+'</b><br>Best score <b>'+scoreBest+'</b>';
+  $('res').innerHTML='점수 <b>'+score+'</b> &middot; 섹터 <b>'+level+'</b><br>최고 점수 <b>'+scoreBest+'</b>';
   $('tBlock').classList.add('hide'); $('oBlock').classList.remove('hide'); $('wBlock').classList.add('hide'); $('ov').classList.remove('hide');
 }
 function goTitle(){
