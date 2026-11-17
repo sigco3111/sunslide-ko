@@ -62,8 +62,9 @@ PATCHES = {
         ("""'The planet is fully green!'""", """'행성이 완전히 초록으로 물들었어요!'"""),
         ("""'SECTOR CLEARED · '""", """'섹터 클리어 · '"""),
         ("""' ('+runMoves+' moves, par '+sectorPar+')'""", """' ('+runMoves+'수, 기준 '+sectorPar+'수)'"""),
-        ("""'Score '+score+' · Sector '+level+' Best score '+scoreBest+' '""",
-         """'점수 '+score+' · 섹터 '+level+' 최고 점수 '+scoreBest+' '"""),
+        ("""'Score '""", """'점수 '"""),
+        ("""' · Sector '""", """' · 섹터 '"""),
+        ("""' Best score '""", """' 최고 점수 '"""),
     ],
     "src/game/frags/05-renderer.js": [
         ("""'This browser has no WebGL, which Sunslide needs.'""",
