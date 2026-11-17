@@ -1,0 +1,24 @@
+name: ko-diag (temporary)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Grep candidate strings
+        run: |
+          echo "== Best score / Score / innerHTML in src =="
+          grep -rn -e "Best score" -e "Score '" -e "innerHTML" src | cut -c1-260
+          echo "== WebGL / READY / earned / Best run / SECTOR =="
+          grep -rn -e "WebGL" -e "READY" -e "earned" -e "Best run" -e "SECTOR" src tests | cut -c1-260
+          echo "== 05 renderer strings =="
+          grep -n -e "no WebGL" -e "Graphics reset" src/game/frags/05-renderer.js | cut -c1-260
+          echo "== 04 line count and last lines =="
+          wc -l src/game/frags/04-rules.js
+          tail -n 3 src/game/frags/04-rules.js | cut -c1-200
