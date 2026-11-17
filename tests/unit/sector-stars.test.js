@@ -57,6 +57,6 @@ describe('sector-stars', () => {
     expect(normalizeStarsMap(store.get(STARS_KEY, {}))['1']).toBe(3);
     recordSectorStars(store, 2, 2);
     expect(totalStarsCount(store.get(STARS_KEY, {}))).toBe(5);
-    expect(formatTitleStarsLine(store.get(STARS_KEY, {}))).toContain('5 stars');
+    expect(formatTitleStarsLine(store.get(STARS_KEY, {}))).toContain('별 5개 획득');
   });
 });
