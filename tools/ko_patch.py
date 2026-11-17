@@ -8,6 +8,9 @@ import pathlib
 import sys
 
 PATCHES = {
+    "tests/smoke.mjs": [
+        ("""announce?.textContent?.includes('Sector clear')""", """announce?.textContent?.includes('섹터 클리어')"""),
+    ],
     "tests/unit/sector-stars.test.js": [
         ("""toContain('5 stars');""", """toContain('별 5개 획득');"""),
     ],
