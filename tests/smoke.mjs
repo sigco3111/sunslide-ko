@@ -362,7 +362,7 @@ try {
             r.dialogOpen &&
             wBlock?.getAttribute('role') === 'dialog' &&
             document.getElementById('winMoves')?.textContent === '7' &&
-            (announce?.textContent?.includes('Sector clear') ?? false) &&
+            (announce?.textContent?.includes('섹터 클리어') ?? false) &&
             ar &&
             Math.min(ar.width, ar.height) >= 44 &&
             mr &&
