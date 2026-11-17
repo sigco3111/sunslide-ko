@@ -1,0 +1,18 @@
+name: ko-diag2 (temporary)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Diagnose
+        run: |
+          echo "---OLD count:"; grep -c "Graphics reset by the browser" src/game/frags/05-renderer.js || true
+          echo "---NEW count:"; grep -c "그래픽을 초기화" src/game/frags/05-renderer.js || true
+          echo "---all Graphics lines:"; grep -n "Graphics\|그래픽" src/game/frags/05-renderer.js | cut -c1-200 || true
