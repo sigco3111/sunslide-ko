@@ -8,6 +8,11 @@ import pathlib
 import sys
 
 PATCHES = {
+    "README.md": [
+        ("""코드가 조립하는 동적 템플릿 문자열(전투·로그류 등)과 원작 로직""",
+         """디버그 오버레이(`?debug`) 등 개발자 전용 문구와 원작 로직"""),
+        ("""번역이 빠진 문구가 남아 있을 수 있습니다.""", """배포 빌드의 주요 화면은 번역되었고, 일부 개발자용 문구는 번역하지 않았습니다."""),
+    ],
     "src/clear-stars.js": [
         ("""`Sector ${sector} · ${moves} moves (par ${par})`""",
          """`섹터 ${sector} · ${moves}수 (기준 ${par}수)`"""),
@@ -39,6 +44,8 @@ PATCHES = {
          """작은 행성 주위 미끄러지는 초원 섬에서 거품 개구리를 움직이는 아케이드 퍼즐."""),
     ],
     "src/game/frags/04-rules.js": [
+        ("""$('res').innerHTML='Score <b>'+score+'</b> &middot; Sector <b>'+level+'</b><br>Best score <b>'+scoreBest+'</b>';""",
+         """$('res').innerHTML='점수 <b>'+score+'</b> &middot; 섹터 <b>'+level+'</b><br>최고 점수 <b>'+scoreBest+'</b>';"""),
         ("""'Extra life!'""", """'목숨 +1!'"""),
         ("""'Combo ×'""", """'콤보 ×'"""),
         ("""'combo ×'""", """'콤보 ×'"""),
