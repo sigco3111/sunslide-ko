@@ -8,6 +8,9 @@ import pathlib
 import sys
 
 PATCHES = {
+    "tests/unit/sector-stars.test.js": [
+        ("""toContain('5 stars');""", """toContain('별 5개 획득');"""),
+    ],
     "README.md": [
         ("""코드가 조립하는 동적 템플릿 문자열(전투·로그류 등)과 원작 로직""",
          """디버그 오버레이(`?debug`) 등 개발자 전용 문구와 원작 로직"""),
