@@ -13,11 +13,4 @@ jobs:
       - uses: actions/checkout@v4
       - name: Diagnose
         run: |
-          echo "== package.json scripts =="
-          node -e "console.log(JSON.stringify(require('./package.json').scripts))"
-          echo "== ci.yml =="
-          cat .github/workflows/ci.yml
-          echo "== sector-stars test expectations (earned/★/star text) =="
-          grep -n -e "earned" -e "★" -e "☆" -e "optional" tests/unit/sector-stars.test.js || echo none
-          echo "== README lines 30-40 =="
-          sed -n '30,40p' README.md
+          grep -rn -e "stars" -e "earned" -e "star" tests | cut -c1-240
