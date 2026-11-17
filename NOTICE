@@ -1,0 +1,13 @@
+Sunslide 한국어판 (Korean edition) — NOTICE
+
+This repository is a Korean translation and GitHub Pages deployment of "Sunslide".
+
+Original work: Sunslide, Copyright © carlok
+Source: https://github.com/carlok/sunslide
+Demo: https://carlok.github.io/sunslide/
+License: Apache License, Version 2.0 (see LICENSE)
+
+Korean translation, localization and deployment: sigco3111
+Korean edition: https://github.com/sigco3111/sunslide-ko
+
+Third-party: three.js (MIT License), https://threejs.org/
