@@ -11,14 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Grep candidate strings
+      - name: Diagnose
         run: |
-          echo "== Best score / Score / innerHTML in src =="
-          grep -rn -e "Best score" -e "Score '" -e "innerHTML" src | cut -c1-260
-          echo "== WebGL / READY / earned / Best run / SECTOR =="
-          grep -rn -e "WebGL" -e "READY" -e "earned" -e "Best run" -e "SECTOR" src tests | cut -c1-260
-          echo "== 05 renderer strings =="
-          grep -n -e "no WebGL" -e "Graphics reset" src/game/frags/05-renderer.js | cut -c1-260
-          echo "== 04 line count and last lines =="
-          wc -l src/game/frags/04-rules.js
-          tail -n 3 src/game/frags/04-rules.js | cut -c1-200
+          echo "== README 번역/한글 lines =="
+          grep -n -e "번역" -e "한국어" -e "translat" -e "Korean" README.md | cut -c1-300
+          echo "== tests mentioning translated strings =="
+          grep -rn -e "earned" -e "Best run" -e "최고" -e "별" -e "Sector" -e "moves" -e "par " -e "star" tests | cut -c1-260
+          echo "== remaining English quoted UI-ish strings in src =="
+          grep -rn -E "'[A-Z][a-z]+( [A-Za-z·!.,-]+)+'" src --include=*.js | grep -v -e "import" -e "console" | cut -c1-220 | head -80
+          echo "== ci.yml =="
+          cat .github/workflows/ci.yml | head -60
